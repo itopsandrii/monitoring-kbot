@@ -1,0 +1,27 @@
+# ./clusters/dev-cluster/logging/fluent-bit.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: fluent-bit
+  namespace: logging
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: fluent-bit
+      version: "0.49.0"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana 
+        namespace: flux-system
+  values:
+    config:
+      outputs: |
+        [OUTPUT]
+            Name             loki
+            Match            *
+            Host             loki.logging.svc.cluster.local
+            Port             3100
+            Labels           job=fluent-bit
+            Auto_Kubernetes_Labels On
+            Label_Keys       $kubernetes['pod_name'],$kubernetes['namespace_name'],$kubernetes['container_name']
