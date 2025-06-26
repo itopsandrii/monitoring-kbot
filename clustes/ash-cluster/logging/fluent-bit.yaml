@@ -6,6 +6,9 @@ metadata:
   namespace: logging
 spec:
   interval: 5m
+  dependsOn: 
+    - name: loki
+      namespace: logging
   chart:
     spec:
       chart: fluent-bit
