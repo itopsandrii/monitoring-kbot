@@ -14,14 +14,15 @@ spec:
         name: grafana
         namespace: flux-system
   values:
-    deploymentMode: SingleBinary
+    singleBinary:
+      enabled: true
     loki:
+      auth_enabled: false
       commonConfig:
         replication_factor: 1
       storage:
         type: filesystem
         filesystem:
           directory: /var/loki
-      auth_enabled: false
       rulerConfig:
         enabled: false
