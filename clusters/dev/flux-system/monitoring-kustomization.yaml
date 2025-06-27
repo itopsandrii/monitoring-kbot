@@ -4,8 +4,6 @@ metadata:
   name: monitoring
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: kube-prometheus-stack
   interval: 10m0s
   path: ./infrastructure/monitoring
   prune: true
